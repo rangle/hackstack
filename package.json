@@ -1,0 +1,24 @@
+{
+  "name": "hack-stack",
+  "version": "0.0.1",
+  "description": "The way you build app that don't have a backend",
+  "main": "server/app.js",
+  "scripts": {
+    "test": "node server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rangle/hack-stack"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rangle/hack-stack/issues"
+  },
+  "homepage": "https://github.com/rangle/hack-stack",
+  "dependencies": {
+    "angular": "^1.3.14",
+    "angular-ui-router": "^0.2.13",
+    "express": "^4.12.2"
+  }
+}

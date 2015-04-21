@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <base href="/" >
+</head>
+<body ng-app="showcase">
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="bower_components/ramda/dist/ramda.min.js"></script>
+<!-- inject:js -->
+<script src="app/app.js"></script>
+<script src="app/components/components.js"></script>
+<script src="app/core/core-constants.js"></script>
+<script src="app/core/core.js"></script>
+<script src="app/sections/sections.js"></script>
+<script src="app/core/rest-entities/rest-entities.js"></script>
+<script src="app/sections/tasks/tasks-controller.js"></script>
+<script src="app/sections/tasks/tasks-service.js"></script>
+<script src="app/sections/tasks/tasks.js"></script>
+<script src="app/core/rest-factory/rest-factory-service.js"></script>
+<script src="app/core/rest-factory/rest-factory.js"></script>
+<!-- endinject -->
+    <ui-view></ui-view>
+</body>
+</html>

@@ -5,9 +5,18 @@
 var express = require('express');
 var app = express();
 
-app.use(express.static('sample-app'));
+app.use(express.static('client'));
+app.get('/api/tasks', function (req, res) {
+  res.send([
+    {
+      id: "1",
+      title: "First task",
+      description: "A wonderful task"
+    }
+  ]);
+});
 
-var server = app.listen(3337, function () {
+var server = app.listen(8080, function () {
 
   var port = server.address().port;
 

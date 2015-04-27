@@ -4,5 +4,6 @@
 'use strict';
 angular.module('showcase.core', [
   'showcase.core.restFactory',
-  'showcase.core.restEntityTasks'
+  'showcase.core.restEntityTasks',
+  'showcase.core.hackstack'
 ]);

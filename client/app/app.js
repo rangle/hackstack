@@ -8,7 +8,8 @@ angular.module('showcase', [
     'showcase.core',
     'showcase.components'
   ])
-  .config(function ($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
+  .config(function ($httpProvider, $locationProvider, $stateProvider,
+    $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider.state('home', {
       url: '/',

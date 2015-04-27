@@ -8,11 +8,14 @@ angular.module('showcase.sections.tasks.controller', [])
     vm.tasks = [];
 
     tasksSvc.getTasks().then(function (response) {
-      console.log('response: ', response);
-      vm.tasks = response.data;
-    });
+        console.log('response: ', response);
+        vm.tasks = response.data;
+      })
+      .then(null, function (error) {
+        console.log(error);
+      });
 
-    vm.addTask = function(task) {
+    vm.addTask = function (task) {
 
     };
   });

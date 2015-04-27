@@ -9,6 +9,7 @@ var inject = require('gulp-inject');
 var livereload = require('gulp-livereload');
 var gulpFilter = require('gulp-filter');
 var jshint = require('gulp-jshint');
+var map = require('map-stream');
 var ngAnnotate = require('gulp-ng-annotate');
 var autoprefixer = require('gulp-autoprefixer');
 var del = require('del');
@@ -59,7 +60,7 @@ gulp.task('lint', function () {
     .pipe(jsHintErrorReporter());
 });
 
-gulp.task('develop', function () {
+gulp.task('dev', function () {
   nodemon({ script: 'server/app.js',
     ext: 'html js',
     tasks: ['lint'] })

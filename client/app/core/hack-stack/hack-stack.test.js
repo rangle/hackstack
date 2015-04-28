@@ -61,16 +61,20 @@ describe('Hack Stack tests', function () {
     });
 
   it('should return the mock data it is created with', function () {
+
     var expectedResults = {
       status: 200,
+      statusText: 'OK',
       data: [{
         id: 1,
         title: 'mock',
         description: 'description'
       }]
     };
+    var hack = hs(expectedResults.data);
+    hack.disableErrors(true);
 
-    expect(hs(expectedResults.data).getAll())
+    expect(hack.getAll())
       .to.eventually.be.deep.equal(expectedResults);
     $timeout.flush();
   });
@@ -78,6 +82,7 @@ describe('Hack Stack tests', function () {
   it('should call $http.get when you pass a json filename', function () {
     var expectedResults = {
       status: 200,
+      statusText: 'OK',
       data: [{
         id: 1,
         title: 'My Mock Task',
@@ -85,6 +90,7 @@ describe('Hack Stack tests', function () {
       }]
     };
     var hack = hs('mock.json');
+    hack.disableErrors(true);
     $httpBackend.flush();
     var result = hack.getAll();
     result.then(function (response) {
@@ -94,4 +100,21 @@ describe('Hack Stack tests', function () {
     $timeout.flush();
   });
 
+  it('Should return an error when forceErrors is set', function () {
+    var expectedResults = {
+      status: 404,
+      statusText: 'Not found',
+      data: 'Forced error by hackStack'
+    };
+    var hack = hs('mock.json');
+    hack.forceError(404);
+    $httpBackend.flush();
+    var result = hack.getAll();
+    result.then(function (response) {
+      expect(response.status).to.equal(404);
+      expect(response.data).to.equal(expectedResults.data);
+    });
+    $timeout.flush();
+
+  });
 });

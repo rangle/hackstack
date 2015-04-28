@@ -115,6 +115,45 @@ describe('Hack Stack tests', function () {
       expect(response.data).to.equal(expectedResults.data);
     });
     $timeout.flush();
+  });
 
+  it('Should have independent results if multiple objects created', function () {
+    var expectedData = [{
+      id: 1,
+      title: 'My Mock Task',
+      description: 'The description'
+    }];
+    var secondExpectedData = [
+      {
+        id: 7,
+        title: 'my own task',
+        description: 'this is the test'
+      }
+    ];
+
+    var hack = hs([{
+      id: 1,
+      title: 'My Mock Task',
+      description: 'The description'
+    }]);
+    var secondHack = hs([
+      {
+        id: 7,
+        title: 'my own task',
+        description: 'this is the test'
+      }
+    ]);
+
+    var result = hack.getAll();
+    var secondResult = secondHack.getAll();
+    $timeout.flush();
+
+    expect(result).to.eventually
+      .have.property('data')
+      .and.deep.equal(expectedData);
+
+    expect(secondResult).to.eventually
+      .have.property('data')
+      .and.deep.equal(secondExpectedData);
   });
 });

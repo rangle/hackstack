@@ -1,0 +1,5 @@
+.idea
+node_modules/
+client/bower_components
+coverage/
+.DS_Store

@@ -260,7 +260,7 @@ angular.module('showcase.core.hackstack.service', [])
         };
       }
 
-      function produceGETError() {
+      function produceGETError(id) {
         var error = null;
         var totalWeight = R.reduce(function (acc, value) {
           return acc + value.distribution;
@@ -286,7 +286,15 @@ angular.module('showcase.core.hackstack.service', [])
         }
 
         if (null === error) {
-          return responseObj;
+          if(id) {
+            return {
+              status: 200,
+              statusText: 'OK',
+              data: responseObj.data[0]
+            }
+          } else {
+            return responseObj;
+          }
         }
         return $q.reject(error);
       }
@@ -298,11 +306,9 @@ angular.module('showcase.core.hackstack.service', [])
       }
 
       function get(id) {
-
-      }
-
-      function query(data, method) {
-
+        return waitForTime().then(function () {
+          return $q.when(produceGETError(id));
+        });
       }
 
       function update(id, data) {
@@ -320,7 +326,9 @@ angular.module('showcase.core.hackstack.service', [])
       return {
         disableErrors: disableErrors,
         forceError: forceError,
-        getAll: getAll
+        get: get,
+        getAll: getAll,
+        query: getAll
       };
     }
 

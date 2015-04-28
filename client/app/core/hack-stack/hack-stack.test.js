@@ -110,7 +110,7 @@ describe('Hack Stack tests', function () {
     hack.forceError(404);
     $httpBackend.flush();
     var result = hack.getAll();
-    result.then(function (response) {
+    result.then(null, function (response) {
       expect(response.status).to.equal(404);
       expect(response.data).to.equal(expectedResults.data);
     });
@@ -156,4 +156,44 @@ describe('Hack Stack tests', function () {
       .have.property('data')
       .and.deep.equal(secondExpectedData);
   });
+
+  it('should return a single result when calling get', function () {
+    var expectedResults = [
+      {
+        id: 7,
+        title: 'my own task',
+        description: 'this is the test'
+      }, {
+        id: 1,
+        title: 'My Mock Task',
+        description: 'The description'
+      }
+    ];
+
+    var hack = hs(expectedResults);
+    var result = hack.getAll();
+    var singleResult = hack.get(1);
+
+    expect(result).to.eventually.have.property('data').and.deep.equal(expectedResults);
+    expect(singleResult).to.eventually.have.property('data').and.deep.equal(expectedResults[0]);
+    $timeout.flush();
+  });
+
+  it('should return the desired result when using get', function () {
+    var expectedResults = {
+      status: 404,
+      statusText: 'Not found',
+      data: 'Forced error by hackStack'
+    };
+    var hack = hs('mock.json');
+    $httpBackend.flush();
+    hack.forceError(404);
+
+    var result = hack.get(1);
+    result.then(null, function (response) {
+      expect(response.status).to.equal(404);
+      expect(response.data).to.equal(expectedResults.data);
+    });
+    $timeout.flush();
+  })
 });

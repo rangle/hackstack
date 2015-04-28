@@ -1,7 +1,3 @@
-/**
- * Created by sobrepere on 15-02-09.
- */
-
 'use strict';
 
 angular.module('showcase.core.constants', [])

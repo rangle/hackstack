@@ -149,7 +149,7 @@ angular.module('showcase.core.hackstack.service', [])
         distribution: 1
       }];
 
-      function setGoodResponse(response, data) {
+      function setGoodGET(response, data) {
         var defaultResponse = {
           status: 200,
           statusText: 'OK',
@@ -162,13 +162,21 @@ angular.module('showcase.core.hackstack.service', [])
         return defaultResponse;
       }
 
+      function goodPOST() {
+        return {
+          status: 201,
+          statusText: 'Created',
+          data: ''
+        };
+      }
+
       if (Array.isArray(mockData)) {
-        responseObj = setGoodResponse(null, mockData);
+        responseObj = setGoodGET(null, mockData);
       } else if (mockData && mockData.indexOf && mockData.indexOf('.json') !==
         -1) {
         $http.get(mockData)
           .then(function (response) {
-            responseObj = setGoodResponse(response);
+            responseObj = setGoodGET(response);
           })
           .then(null, function (error) {
             throw new Error(error);
@@ -260,11 +268,10 @@ angular.module('showcase.core.hackstack.service', [])
         };
       }
 
-      function produceGETError(id) {
-        var error = null;
+      function produceError(errorArray) {
         var totalWeight = R.reduce(function (acc, value) {
           return acc + value.distribution;
-        }, 0, errors);
+        }, 0, errorArray);
 
 
         if (totalWeight > MAX_ERROR_DISTRIBUTION) {
@@ -277,58 +284,129 @@ angular.module('showcase.core.hackstack.service', [])
         if (setError === null) {
           R.forEach(function (item) {
             weightedSum += item.distribution;
-            if (randomNumber <= weightedSum && error === null) {
-              error = cleanError(item);
+            if (randomNumber <= weightedSum) {
+              return cleanError(item);
             }
-          }, errors);
+          }, errorArray);
         } else {
-          error = cleanError(getErrorByCode(setError));
+          return cleanError(getErrorByCode(setError));
         }
 
-        if (null === error) {
-          if(id) {
-            return {
-              status: 200,
-              statusText: 'OK',
-              data: responseObj.data[0]
-            }
-          } else {
-            return responseObj;
-          }
+        return null;
+      }
+
+      function processGET(id) {
+        var error = produceError(errors);
+
+        if (null !== error) {
+          return $q.reject(error);
         }
-        return $q.reject(error);
+
+        if(id) {
+          return {
+            status: 200,
+            statusText: 'OK',
+            data: responseObj.data[0]
+          }
+        } else {
+          return responseObj;
+        }
+      }
+
+      /**
+       * Randomly generate an error on create.  If no error is generated
+       * it will add the new item to the mock data array.
+       *
+       * @param data The new data item to be created.
+       * @param createIdFn A function that contains logic to provide a new id.
+       * This is done in case the ids are alphanumberic or not straight forward
+       * to increment.
+       *
+       * @returns {*} An error or null.
+       */
+      function processCreate(data, createIdFn) {
+        var error = produceError(errors);
+
+        if (null !== error) {
+          return $q.reject(error);
+        }
+
+        if(R.not(R.has('id')(data))) {
+          data.id = createIdFn();
+        }
+        //TODO: Add a location header with the new id.
+        mockData.push(data);
+        setGoodGET(null, mockData);
+        return goodPOST();
+      }
+
+      function processUpdate(id, data) {
+        var error = produceError(errors);
+
+        if(null !== error) {
+          return $q.reject(error);
+        }
+
+        var index = -1;
+        R.forEachIndexed(function (item, idx) {
+          if(item.id === id) {
+            index = idx;
+          }
+        }, mockData);
+        if(index > -1) {
+          mockData[index] = data;
+          return {
+            status: 200,
+            statusText: 'OK',
+            data: ''
+          };
+
+        } else {
+          return $q.reject(cleanError(getErrorByCode(404)));
+        }
       }
 
       function getAll() {
         return waitForTime().then(function () {
-          return $q.when(produceGETError());
+          return $q.when(processGET());
         });
       }
 
       function get(id) {
         return waitForTime().then(function () {
-          return $q.when(produceGETError(id));
+          return $q.when(processGET(id));
         });
       }
 
       function update(id, data) {
-
+        return waitForTime().then(function() {
+          return $q.when(processUpdate(id, data));
+        });
       }
 
-      function create(data) {
-
+      function create(data, createIdFn) {
+        return waitForTime().then(function() {
+          return $q.when(processCreate(data, createIdFn));
+        });
       }
 
       function save(data) {
-
+        if(data.id) {
+          return update(data.id, data);
+        } else {
+          return create(data);
+        }
       }
 
       return {
+        create: create,
         disableErrors: disableErrors,
         forceError: forceError,
         get: get,
         getAll: getAll,
-        query: getAll
+        query: getAll,
+        save: save,
+        update: update
       };
     }
 

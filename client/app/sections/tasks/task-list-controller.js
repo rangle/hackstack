@@ -3,7 +3,7 @@
  */
 'use strict';
 angular.module('showcase.sections.tasks.listController', [])
-  .controller('taskListCtrl', function (tasksSvc) {
+  .controller('taskListCtrl', function (tasksSvc, notifier) {
     var vm = this;
     vm.tasks = [];
 
@@ -14,7 +14,7 @@ angular.module('showcase.sections.tasks.listController', [])
           vm.tasks = response.data;
         })
         .then(null, function (error) {
-          console.log(error);
+          notifier.alert(error.status + ' ' + error.statusText);
         });
     };
 

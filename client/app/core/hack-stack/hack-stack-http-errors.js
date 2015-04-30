@@ -18,6 +18,14 @@ angular.module('showcase.core.hackstack.httpErrorsFactory', [])
      */
     var setError = null;
 
+    /**
+     * Set to ensure you get a 200 return from the the API.  This will
+     * bypass the random error generation.
+     *
+     * @type {boolean} False to produce errors, true to prevent errors.
+     */
+    var errorsDisabled = false;
+
     var errors = [{
       status: 0, //Dropped connection
       statusText: '',
@@ -117,6 +125,21 @@ angular.module('showcase.core.hackstack.httpErrorsFactory', [])
     }];
 
     /**
+     * Set whether or not the hack stack should randomly produce server errors
+     *
+     * @param {boolean} disabled true to disable errors, false (default)
+     * otherwise.
+     * @returns {boolean} If called without a parameter, acts as a getter.
+     */
+    function disableErrors(disabled) {
+      if (disabled || disabled === false) {
+        errorsDisabled = disabled;
+      } else {
+        return errorsDisabled;
+      }
+    }
+
+    /**
      * Retrieve the full error object from the errors array.
      *
      * @param errorCode The HTTP error code to be retrieved.
@@ -187,21 +210,24 @@ angular.module('showcase.core.hackstack.httpErrorsFactory', [])
       var randomNumber = randomInt(0, MAX_ERROR_DISTRIBUTION);
       var error = null;
       var weightedSum = 0;
-      if (setError === null) {
-        R.forEach(function (item) {
-          weightedSum += item.distribution;
-          if (randomNumber <= weightedSum && error === null) {
-            error = cleanError(item);
-          }
-        }, errorArray);
-      } else {
-        return cleanError(getErrorByCode(setError));
+      if(errorsDisabled === false) {
+        if (setError === null) {
+          R.forEach(function (item) {
+            weightedSum += item.distribution;
+            if (randomNumber <= weightedSum && error === null) {
+              error = cleanError(item);
+            }
+          }, errorArray);
+        } else {
+          return cleanError(getErrorByCode(setError));
+        }
       }
 
       return error;
     }
 
     return {
+      disableErrors: disableErrors,
       forceError: forceError,
       produceError: produceError,
       getErrorByCode: getErrorByCode,

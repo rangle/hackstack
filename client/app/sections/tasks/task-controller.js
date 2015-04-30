@@ -1,6 +1,6 @@
 'use strict';
 angular.module('showcase.sections.tasks.controller', [])
-.controller('taskCtrl', function ($stateParams, tasksSvc) {
+.controller('taskCtrl', function ($stateParams, tasksSvc, notifier) {
     var vm = this;
     vm.task = {};
 
@@ -10,7 +10,7 @@ angular.module('showcase.sections.tasks.controller', [])
           vm.task = response.data;
         })
         .then(null, function(error) {
-          console.log('There was an error: ', error);
+          notifier.alert(error.status + ' ' + error.statusText);
         });
     }
 
@@ -20,8 +20,7 @@ angular.module('showcase.sections.tasks.controller', [])
           alert('save successful');
         })
         .then(null, function(error) {
-          console.log('Failed to save: ', error);
-          alert('failed to save, check console for details');
+          notifier.alert(error.status + ' ' + error.statusText);
         });
     }
 

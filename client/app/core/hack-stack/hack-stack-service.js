@@ -24,18 +24,11 @@ angular.module('showcase.core.hackstack.service', [
         absoluteTime: null
       };
 
-      /**
-       * Set to ensure you get a 200 return from the the API.  This will
-       * bypass the random error generation.
-       *
-       * @type {boolean} False to produce errors, true to prevent errors.
-       */
-      var errorsDisabled = false;
-
       options = options || defaults; //TODO: Merge these.
 
       var responseObj;
 
+      var disableErrors = httpErrorFactory.disableErrors;
       var produceError = httpErrorFactory.produceError;
       var getErrorByCode = httpErrorFactory.getErrorByCode;
       var randomInt = httpErrorFactory.randomInt;
@@ -76,21 +69,6 @@ angular.module('showcase.core.hackstack.service', [
         throw new Error('mockData required to be an array or .json path');
       }
 
-      /**
-       * Set whether or not the hack stack should randomly produce server errors
-       *
-       * @param {boolean} disabled true to disable errors, false (default)
-       * otherwise.
-       * @returns {boolean} If called without a parameter, acts as a getter.
-       */
-      function disableErrors(disabled) {
-        if (disabled || disabled === false) {
-          errorsDisabled = disabled;
-        } else {
-          return errorsDisabled;
-        }
-      }
-
       function waitForTime() {
         var time;
         if (options.absoluteTime !== null) {
@@ -112,11 +90,9 @@ angular.module('showcase.core.hackstack.service', [
         }
 
         if(id) {
-          console.log('ID: ', id);
           var foundItem = R.filter(function (item) {
             return item.id == id;
           }, mockData)[0];
-          console.log('found item: ', foundItem);
           return {
             status: 200,
             statusText: 'OK',
@@ -145,7 +121,7 @@ angular.module('showcase.core.hackstack.service', [
           return $q.reject(error);
         }
 
-        if(R.not(R.has('id')(data))) {
+        if(createIdFn) {
           data.id = createIdFn();
         }
         //TODO: Add a location header with the new id.

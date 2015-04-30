@@ -11,9 +11,15 @@ angular.module('showcase', [
   .config(function ($httpProvider, $locationProvider, $stateProvider,
     $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
-    $stateProvider.state('home', {
-      url: '/',
-      templateUrl: 'app/sections/tasks/taskList.html',
-      controller: 'tasksCtrl as tasksCtrl'
-    });
+    $stateProvider
+      .state('home', {
+        url: '/',
+        templateUrl: 'app/sections/tasks/taskList.html',
+        controller: 'taskListCtrl as taskListCtrl'
+      })
+      .state('editTask', {
+        url: '/new/:taskId',
+        templateUrl: 'app/sections/tasks/taskEdit.html',
+        controller: 'taskCtrl as taskCtrl'
+      });
   });

@@ -8,13 +8,15 @@
         </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="task in tasksCtrl.tasks">
+            <tr ng-repeat="task in taskListCtrl.tasks">
                 <td>{{task.id}}</td>
                 <td>{{task.title}}</td>
                 <td>{{task.description}}</td>
+                <td><a ui-sref="editTask({taskId: task.id})">Edit</a></td>
             </tr>
         </tbody>
     </table>
 
-    <button ng-click="tasksCtrl.getTasks()">Get tasks</button>
+    <button ng-click="taskListCtrl.getTasks()">Get tasks</button>
+    <button ui-sref="editTask">New task</button>
 </div>

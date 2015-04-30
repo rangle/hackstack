@@ -8,7 +8,17 @@ angular.module('showcase.sections.tasks.service', [])
       return taskRestSvc.getAll();
     }
 
+    function getTask(id) {
+      return taskRestSvc.get(id);
+    }
+
+    function saveTask(data) {
+      return taskRestSvc.save(data);
+    }
+
     return {
-      getTasks: getTasks
+      getTasks: getTasks,
+      getTask: getTask,
+      saveTask: saveTask
     };
   });

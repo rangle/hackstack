@@ -5,6 +5,7 @@
             <th>ID</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Assignee</th>
         </tr>
         </thead>
         <tbody>
@@ -12,6 +13,7 @@
                 <td>{{task.id}}</td>
                 <td>{{task.title}}</td>
                 <td>{{task.description}}</td>
+                <td>{{task.assignee}}</td>
                 <td><a ui-sref="editTask({taskId: task.id})">Edit</a></td>
             </tr>
         </tbody>

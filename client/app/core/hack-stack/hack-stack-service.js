@@ -3,9 +3,9 @@
  */
 'use strict';
 angular.module('showcase.core.hackstack.service', [
-  'showcase.core.hackstack.httpErrorsFactory'
+  'showcase.core.hackstack.common'
 ])
-  .factory('hackStack', function ($http, $q, $timeout, MAX_ERROR_DISTRIBUTION, httpErrorFactory) {
+  .factory('hackStack', function ($http, $q, hackStackUtils) {
     /**
      * Create a mock endpoint to use in your app.
      *
@@ -18,20 +18,12 @@ angular.module('showcase.core.hackstack.service', [
      */
     function createMock(mockData, options) {
 
-      var defaults = {
-        maxTime: 2000,
-        minTime: 0,
-        absoluteTime: null
-      };
-
-      options = options || defaults; //TODO: Merge these.
-
       var responseObj;
 
-      var disableErrors = httpErrorFactory.disableErrors;
-      var produceError = httpErrorFactory.produceError;
-      var getErrorByCode = httpErrorFactory.getErrorByCode;
-      var randomInt = httpErrorFactory.randomInt;
+      var disableErrors = hackStackUtils.disableErrors;
+      var produceError = hackStackUtils.produceError;
+      var getErrorByCode = hackStackUtils.getErrorByCode;
+      var waitForTime = hackStackUtils.waitForTime;
 
       function setGoodGET(response, data) {
         var defaultResponse = {
@@ -67,19 +59,6 @@ angular.module('showcase.core.hackstack.service', [
           });
       } else {
         throw new Error('mockData required to be an array or .json path');
-      }
-
-      function waitForTime() {
-        var time;
-        if (options.absoluteTime !== null) {
-          time = options.absoluteTime;
-        } else {
-          time = randomInt(options.minTime, options.maxTime);
-        }
-
-        return $timeout(function () {
-          return true;
-        }, time);
       }
 
       function processGET(id) {
@@ -202,7 +181,7 @@ angular.module('showcase.core.hackstack.service', [
       return {
         create: create,
         disableErrors: disableErrors,
-        forceError: httpErrorFactory.forceError,
+        forceError: hackStackUtils.forceError,
         get: get,
         getAll: getAll,
         query: getAll,

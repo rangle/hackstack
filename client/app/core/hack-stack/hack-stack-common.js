@@ -1,5 +1,5 @@
 'use strict';
-angular.module('showcase.core.hackstack.httpErrorsFactory', [])
+angular.module('showcase.core.hackstack.common', [])
   /**
    * A random number will be generated between 0 and MAX_ERROR_DISTRIBUTION.
    * The number generated will be used to determine which error will be produced.
@@ -10,7 +10,7 @@ angular.module('showcase.core.hackstack.httpErrorsFactory', [])
    * 100 - sum_of_distributions = the chance of a clean return.
    */
   .constant('MAX_ERROR_DISTRIBUTION', 100)
-  .factory('httpErrorFactory', function (MAX_ERROR_DISTRIBUTION) {
+  .factory('hackStackUtils', function (MAX_ERROR_DISTRIBUTION, $timeout) {
     /**
      * Set a specific error to be returned.  Pass in the HTTP error code.
      *
@@ -25,6 +25,14 @@ angular.module('showcase.core.hackstack.httpErrorsFactory', [])
      * @type {boolean} False to produce errors, true to prevent errors.
      */
     var errorsDisabled = false;
+
+    var defaults = {
+      maxTime: 2000,
+      minTime: 0,
+      absoluteTime: null
+    };
+
+    var options = options || defaults; //TODO: Provide a way to set options.
 
     var errors = [{
       status: 0, //Dropped connection
@@ -226,11 +234,25 @@ angular.module('showcase.core.hackstack.httpErrorsFactory', [])
       return error;
     }
 
+    function waitForTime() {
+      var time;
+      if (options.absoluteTime !== null) {
+        time = options.absoluteTime;
+      } else {
+        time = randomInt(options.minTime, options.maxTime);
+      }
+
+      return $timeout(function () {
+        return true;
+      }, time);
+    }
+
     return {
       disableErrors: disableErrors,
       forceError: forceError,
       produceError: produceError,
       getErrorByCode: getErrorByCode,
-      randomInt: randomInt
+      randomInt: randomInt,
+      waitForTime: waitForTime
     }
   });

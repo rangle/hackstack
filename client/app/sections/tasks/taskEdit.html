@@ -1,0 +1,17 @@
+<div>
+    <h1>New task</h1>
+</div>
+<div>
+    <label>Title:
+        <input type="text" ng-model="taskCtrl.task.title" />
+    </label>
+    <label>Description:
+        <textarea ng-model="taskCtrl.task.description" ></textarea>
+    </label>
+    <label>Assignee:
+        <input type="text" ng-model="taskCtrl.task.assignee" />
+    </label>
+</div>
+<div>
+    <button type="button" ng-click="taskCtrl.saveTask()">Save</button>
+</div>

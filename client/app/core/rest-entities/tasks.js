@@ -6,11 +6,14 @@ angular.module('showcase.core.restEntityTasks', [
     'showcase.core.restFactory.service'
   ])
   .constant('SCHEMA_NAME', 'tasks')
-  .factory('taskRestSvc', function (SCHEMA_NAME, restFactory, hackStack) {
+  .factory('taskRestSvc', function (SCHEMA_NAME, restFactory, hackStack, hackWrap) {
     //return restFactory(SCHEMA_NAME);
-    return hackStack([{
+    /*return hackStack([{
       id: 2,
       title: 'My hack stack',
       description: 'This is a hack'
-    }]);
+    }]);*/
+    return hackWrap('tasks', {
+      assignee: 'Brian'
+    });
   });

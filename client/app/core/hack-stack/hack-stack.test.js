@@ -176,7 +176,7 @@ describe('Hack Stack tests', function () {
       var singleResult = hack.get(1);
 
       expect(result).to.eventually.have.property('data').and.deep.equal(expectedResults);
-      expect(singleResult).to.eventually.have.property('data').and.deep.equal(expectedResults[0]);
+      expect(singleResult).to.eventually.have.property('data').and.deep.equal(expectedResults[1]);
       $timeout.flush();
     });
 

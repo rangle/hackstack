@@ -118,65 +118,62 @@ describe('Hack Stack tests', function () {
       $timeout.flush();
     });
 
-    it('Should have independent results if multiple objects created', function () {
-      var expectedData = [{
+    it('Should have independent results if multiple objects created',
+      function () {
+        var expectedData = [{
+          id: 1,
+          title: 'My Mock Task',
+          description: 'The description'
+        }];
+        var secondExpectedData = [{
+          id: 7,
+          title: 'my own task',
+          description: 'this is the test'
+        }];
+
+        var hack = hs([{
+          id: 1,
+          title: 'My Mock Task',
+          description: 'The description'
+        }]);
+        var secondHack = hs([{
+          id: 7,
+          title: 'my own task',
+          description: 'this is the test'
+        }]);
+
+        var result = hack.getAll();
+        var secondResult = secondHack.getAll();
+        $timeout.flush();
+
+        expect(result).to.eventually
+          .have.property('data')
+          .and.deep.equal(expectedData);
+
+        expect(secondResult).to.eventually
+          .have.property('data')
+          .and.deep.equal(secondExpectedData);
+      });
+
+    it('should return a single result when calling get', function () {
+      var expectedResults = [{
+        id: 7,
+        title: 'my own task',
+        description: 'this is the test'
+      }, {
         id: 1,
         title: 'My Mock Task',
         description: 'The description'
       }];
-      var secondExpectedData = [
-        {
-          id: 7,
-          title: 'my own task',
-          description: 'this is the test'
-        }
-      ];
-
-      var hack = hs([{
-        id: 1,
-        title: 'My Mock Task',
-        description: 'The description'
-      }]);
-      var secondHack = hs([
-        {
-          id: 7,
-          title: 'my own task',
-          description: 'this is the test'
-        }
-      ]);
-
-      var result = hack.getAll();
-      var secondResult = secondHack.getAll();
-      $timeout.flush();
-
-      expect(result).to.eventually
-        .have.property('data')
-        .and.deep.equal(expectedData);
-
-      expect(secondResult).to.eventually
-        .have.property('data')
-        .and.deep.equal(secondExpectedData);
-    });
-
-    it('should return a single result when calling get', function () {
-      var expectedResults = [
-        {
-          id: 7,
-          title: 'my own task',
-          description: 'this is the test'
-        }, {
-          id: 1,
-          title: 'My Mock Task',
-          description: 'The description'
-        }
-      ];
 
       var hack = hs(expectedResults);
       var result = hack.getAll();
       var singleResult = hack.get(1);
 
-      expect(result).to.eventually.have.property('data').and.deep.equal(expectedResults);
-      expect(singleResult).to.eventually.have.property('data').and.deep.equal(expectedResults[1]);
+      expect(result).to.eventually.have.property('data').and.deep.equal(
+        expectedResults);
+      expect(singleResult).to.eventually.have.property('data').and.deep
+        .equal(expectedResults[1]);
       $timeout.flush();
     });
 
@@ -221,12 +218,13 @@ describe('Hack Stack tests', function () {
       hack.disableErrors(true);
       var result = hack.create(newTask);
       expect(result).to.eventually.deep.equal(expected);
-      expect(result).to.eventually.have.property('status').and.equal(201);
+      expect(result).to.eventually.have.property('status').and.equal(
+        201);
       $timeout.flush();
 
       //getAll should return the new item.
       var getResult = hack.getAll();
-      getResult.then(function(response) {
+      getResult.then(function (response) {
         expect(response.status).to.equal(200);
         expect(response.data.length).to.equal(2);
         expect(response.data[1]).to.deep.equal(newTask);
@@ -252,16 +250,17 @@ describe('Hack Stack tests', function () {
       };
 
       hack.disableErrors(true);
-      var result = hack.create(newTask, function() {
+      var result = hack.create(newTask, function () {
         return 2;
       });
       expect(result).to.eventually.deep.equal(expected);
-      expect(result).to.eventually.have.property('status').and.equal(201);
+      expect(result).to.eventually.have.property('status').and.equal(
+        201);
       $timeout.flush();
 
       //getAll should return the new item.
       var getResult = hack.getAll();
-      getResult.then(function(response) {
+      getResult.then(function (response) {
         expect(response.status).to.equal(200);
         expect(response.data.length).to.equal(2);
         expect(response.data[1].id).to.equal(2);
@@ -272,37 +271,38 @@ describe('Hack Stack tests', function () {
 
   describe('Update tests', function () {
     it('should return a 200 if the data is in the mock data array' +
-      'and update the entry', function () {
-      var hack = hs(
-        [{
+      'and update the entry',
+      function () {
+        var hack = hs(
+          [{
+            id: 1,
+            title: 'task',
+            description: 'mock task'
+          }]);
+        var expected = {
+          status: 200,
+          statusText: 'OK',
+          data: ''
+        };
+        hack.disableErrors(true);
+        var result = hack.update(1, {
           id: 1,
-          title: 'task',
-          description: 'mock task'
-        }]);
-      var expected = {
-        status: 200,
-        statusText: 'OK',
-        data: ''
-      };
-      hack.disableErrors(true);
-      var result = hack.update(1, {
-        id: 1,
-        title: 'updated task',
-        description: 'an update'
-      });
-      result.then(function (response) {
-        expect(response.status).to.equal(200);
-      });
-      $timeout.flush();
+          title: 'updated task',
+          description: 'an update'
+        });
+        result.then(function (response) {
+          expect(response.status).to.equal(200);
+        });
+        $timeout.flush();
 
-      var getResult = hack.getAll();
-      getResult.then(function(response) {
-        expect(response.status).to.equal(200);
-        expect(response.data.length).to.equal(1);
-        expect(response.data[0].title).to.equal('updated task');
+        var getResult = hack.getAll();
+        getResult.then(function (response) {
+          expect(response.status).to.equal(200);
+          expect(response.data.length).to.equal(1);
+          expect(response.data[0].title).to.equal('updated task');
+        });
+        $timeout.flush();
       });
-      $timeout.flush();
-    });
 
     it('should return a 404 if item is not found in mockData', function () {
       var hack = hs(

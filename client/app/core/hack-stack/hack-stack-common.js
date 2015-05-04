@@ -32,8 +32,18 @@ angular.module('showcase.core.hackstack.common', [])
       absoluteTime: null
     };
 
-    var options = options || defaults; //TODO: Provide a way to set options.
+    var options = defaults;
 
+    /**
+     * The default list of errors to be randomly produced.
+     * Contains three properties:
+     *   status: The HTTP status code of the error.
+     *   statusText: The status text associated with the error.
+     *   distribution: The chance out of 100 that the error will occure.
+     *      i.e. a 5 means the error will be produced 5 percent of the time.
+     *
+     * @type {*[]} An array of error objects.
+     */
     var errors = [{
       status: 0, //Dropped connection
       statusText: '',
@@ -200,10 +210,30 @@ angular.module('showcase.core.hackstack.common', [])
       };
     }
 
+    /**
+     * Generate a random integer.
+     *
+     * @param min The minimum number you want to see.
+     * @param max The highest number you want to see.
+     *
+     * @returns {*} A random integer within the specified range.
+     */
     function randomInt(min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
     }
 
+    /**
+     * Produce a random HTTP error from the 400 or 500 series errors.  The
+     * errors come from the internal list of possible errors by default and have
+     * weights assigned to them that indicate the relative frequency that
+     * the error should occur.
+     *
+     * @param errorArray The list of possible errors to choose from.  Defaults
+     * to the internal list of errors.
+     *
+     * @returns {*} A object representing an HTTP error or null if there is no
+     * error.
+     */
     function produceError(errorArray) {
       errorArray = errorArray || errors;
       var totalWeight = R.reduce(function (acc, value) {
@@ -218,7 +248,7 @@ angular.module('showcase.core.hackstack.common', [])
       var randomNumber = randomInt(0, MAX_ERROR_DISTRIBUTION);
       var error = null;
       var weightedSum = 0;
-      if(errorsDisabled === false) {
+      if (errorsDisabled === false) {
         if (setError === null) {
           R.forEach(function (item) {
             weightedSum += item.distribution;
@@ -234,6 +264,11 @@ angular.module('showcase.core.hackstack.common', [])
       return error;
     }
 
+    /**
+     * Add a false latency to any requests made.
+     *
+     * @returns {*} True, always.
+     */
     function waitForTime() {
       var time;
       if (options.absoluteTime !== null) {
@@ -247,12 +282,17 @@ angular.module('showcase.core.hackstack.common', [])
       }, time);
     }
 
+    function setOptions(newOptions) {
+      options = R.merge(options, newOptions);
+    }
+
     return {
       disableErrors: disableErrors,
       forceError: forceError,
       produceError: produceError,
       getErrorByCode: getErrorByCode,
       randomInt: randomInt,
+      setOptions: setOptions,
       waitForTime: waitForTime
-    }
+    };
   });

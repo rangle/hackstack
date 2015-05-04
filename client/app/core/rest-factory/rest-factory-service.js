@@ -88,7 +88,8 @@ angular.module('showcase.core.restFactory.service', [
     function create(data) {
       return $http.post(baseEndpoint, data).then(function (response) {
         data.id = R.last(response.headers().location.split('/'));
-        return data;
+        response.data = data;
+        return response;
       });
     }
 

@@ -3,8 +3,8 @@
  */
 'use strict';
 angular.module('showcase.core.hackstack.service', [
-  'showcase.core.hackstack.common'
-])
+    'showcase.core.hackstack.common'
+  ])
   .factory('hackStack', function ($http, $q, hackStackUtils) {
     /**
      * Create a mock endpoint to use in your app.
@@ -19,6 +19,10 @@ angular.module('showcase.core.hackstack.service', [
     function createMock(mockData, options) {
 
       var responseObj;
+
+      if (options) {
+        hackStackUtils.setOptions(options);
+      }
 
       var disableErrors = hackStackUtils.disableErrors;
       var produceError = hackStackUtils.produceError;
@@ -68,15 +72,16 @@ angular.module('showcase.core.hackstack.service', [
           return $q.reject(error);
         }
 
-        if(id) {
+        if (id) {
           var foundItem = R.filter(function (item) {
-            return item.id == id;
+            /*jshint eqeqeq:false */
+            return item.id == id;  //comparing a string to an integer.
           }, mockData)[0];
           return {
             status: 200,
             statusText: 'OK',
             data: foundItem
-          }
+          };
         } else {
           return responseObj;
         }
@@ -100,7 +105,7 @@ angular.module('showcase.core.hackstack.service', [
           return $q.reject(error);
         }
 
-        if(createIdFn) {
+        if (createIdFn) {
           data.id = createIdFn();
         }
         //TODO: Add a location header with the new id.
@@ -112,17 +117,17 @@ angular.module('showcase.core.hackstack.service', [
       function processUpdate(id, data) {
         var error = produceError();
 
-        if(null !== error) {
+        if (null !== error) {
           return $q.reject(error);
         }
 
         var index = -1;
         R.forEachIndexed(function (item, idx) {
-          if(item.id === id) {
+          if (item.id === id) {
             index = idx;
           }
         }, mockData);
-        if(index > -1) {
+        if (index > -1) {
           mockData[index] = data;
           return {
             status: 200,
@@ -148,15 +153,15 @@ angular.module('showcase.core.hackstack.service', [
       }
 
       function update(id, data) {
-        return waitForTime().then(function() {
+        return waitForTime().then(function () {
           return $q.when(processUpdate(id, data));
         });
       }
 
       function generateId() {
         var maxId = 0;
-        R.forEach(function(item) {
-          if(item.id > maxId) {
+        R.forEach(function (item) {
+          if (item.id > maxId) {
             maxId = item.id;
           }
         });
@@ -164,14 +169,14 @@ angular.module('showcase.core.hackstack.service', [
       }
 
       function create(data, createIdFn) {
-        return waitForTime().then(function() {
+        return waitForTime().then(function () {
           return $q.when(processCreate(data, createIdFn));
         });
       }
 
       function save(data, createIdFn) {
         createIdFn = createIdFn || generateId;
-        if(data.id) {
+        if (data.id) {
           return update(data.id, data);
         } else {
           return create(data, createIdFn);

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('showcase.components.notifier.directive', [])
-.directive('notify', function () {
+  .directive('notify', function () {
     return {
       restrict: 'E',
       scope: {},

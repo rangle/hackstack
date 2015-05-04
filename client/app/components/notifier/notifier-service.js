@@ -1,6 +1,6 @@
 'use strict';
 angular.module('showcase.components.notifier.service', [])
-.factory('notifier', function () {
+  .factory('notifier', function () {
     var notifications = [];
 
     function message(type) {

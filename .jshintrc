@@ -21,6 +21,7 @@
     "expr": true,
     "globals": {
       "angular": true,
+      "alert": true,
       "_": true,
       "R": true,
       "Q": true,
@@ -28,6 +29,7 @@
       "describe": true,
       "expect": true,
       "it": true,
+      "xit": true,
       "beforeEach": true,
       "afterEach": true,
       "testUtils": true,

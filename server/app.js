@@ -36,6 +36,12 @@ app.post('/api/tasks/', function (req, res) {
   res.send({message: 'success'});
 });
 
+app.post('/api/tasks/:taskId', function (req, res) {
+  var message = 'successfully updated ' + req.body.id;
+  console.log('Updated: ', req.body);
+  res.send({message: message});
+});
+
 var server = app.listen(8080, function () {
 
   var port = server.address().port;

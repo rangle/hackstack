@@ -1,15 +1,15 @@
 'use strict';
 angular.module('showcase.sections.tasks.controller', [])
-.controller('taskCtrl', function ($stateParams, tasksSvc, notifier) {
+  .controller('taskCtrl', function ($stateParams, tasksSvc, notifier) {
     var vm = this;
     vm.task = {};
 
-    if($stateParams.taskId) {
+    if ($stateParams.taskId) {
       tasksSvc.getTask($stateParams.taskId)
-        .then(function(response) {
+        .then(function (response) {
           vm.task = response.data;
         })
-        .then(null, function(error) {
+        .then(null, function (error) {
           notifier.alert(error.status + ' ' + error.statusText);
         });
     }
@@ -19,9 +19,9 @@ angular.module('showcase.sections.tasks.controller', [])
         .then(function (response) {
           alert('save successful');
         })
-        .then(null, function(error) {
+        .then(null, function (error) {
           notifier.alert(error.status + ' ' + error.statusText);
         });
-    }
+    };
 
   });

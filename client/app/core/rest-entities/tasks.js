@@ -6,7 +6,8 @@ angular.module('showcase.core.restEntityTasks', [
     'showcase.core.restFactory.service'
   ])
   .constant('SCHEMA_NAME', 'tasks')
-  .factory('taskRestSvc', function (SCHEMA_NAME, restFactory, hackStack, hackWrap) {
+  .factory('taskRestSvc', function (SCHEMA_NAME, restFactory, hackStack,
+    hackWrap) {
     //return restFactory(SCHEMA_NAME);
     /*return hackStack([{
       id: 2,

@@ -26,9 +26,9 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'client/app/**/*.html': 'ng-html2js',
-      'client/app/**/*.json': 'ng-json2js',
-      'client/app/**/!(*.test).js':'coverage'
+      'example/client/app/**/*.html': 'ng-html2js',
+      'example/client/app/**/*.json': 'ng-json2js',
+      'example/client/app/**/!(*.test).js':'coverage'
     },
 
     coverageReporter: {

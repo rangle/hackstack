@@ -15,10 +15,11 @@ var autoprefixer = require('gulp-autoprefixer');
 var del = require('del');
 var nodemon = require('gulp-nodemon');
 
-var clientJsFiles = ['./client/app/**/*.js'];
-var indexTmpl = './client/app/index.html';
-var cleanDirs = ['./client/dist/*'];
-var distFolder = 'client/dist';
+var clientJsFiles = ['./lib/src/**/*.js', './example/client/**/*.js' ];
+var distributionFiles = './dist/app/**/*.js';
+var indexTmpl = './dist/app/index.html';
+var cleanDirs = ['./dist/*'];
+
 
 var jsHintErrorReporter = function () {
   return map(function (file, cb) {
@@ -33,16 +34,27 @@ gulp.task('clean', function () {
   del(cleanDirs);
 });
 
-gulp.task('index-dev', function () {
+gulp.task('copy', function () {
+  gulp.src('./example/client/**/*')
+    .pipe(gulp.dest('./dist'));
+
+  gulp.src('./example/bower_components/**/*')
+    .pipe(gulp.dest('./dist/bower_components'));
+
+  gulp.src('./lib/src/**/*.js')
+    .pipe(gulp.dest('./dist/app'));
+});
+
+gulp.task('index-dev', ['copy'], function () {
 
   var filter = gulpFilter(function (file) {
     return !/\.test\.js$/.test(file.path);
   });
   var target = gulp.src(indexTmpl);
-  var sources = gulp.src(clientJsFiles, {read: false}).pipe(filter);
+  var sources = gulp.src(distributionFiles, {read: false}).pipe(filter);
 
-  return target.pipe(inject(sources, {ignorePath: '/client/', addRootSlash: false}))
-    .pipe(gulp.dest('./client'));
+  return target.pipe(inject(sources, {ignorePath: '/dist', addRootSlash: false}))
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('beautify', function() {
@@ -63,7 +75,7 @@ gulp.task('lint', function () {
 gulp.task('dev', function () {
   nodemon({ script: 'server/app.js',
     ext: 'html js',
-    tasks: ['lint'] })
+    tasks: ['lint', 'index-dev'] })
     .on('restart', function () {
       console.log('restarted!')
     });

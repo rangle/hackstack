@@ -6,7 +6,8 @@ angular.module('showcase', [
     'ui.router',
     'showcase.sections',
     'showcase.core',
-    'showcase.components'
+    'showcase.components',
+    'hackstack'
   ])
   .config(function ($httpProvider, $locationProvider, $stateProvider,
     $urlRouterProvider) {

@@ -13,6 +13,33 @@ While the presentation specifies that the hack stack is a methodology, not a
 library, the public outcry for a library could not be ignored.  This is the 
 library.
 
+## Installing the service
+This needs work, but for now take the hack-stack folder out of the core 
+directory and add it into your project.  You will need to change the module 
+names appropriately.
+
+Currently the module has it living in the showcase app.
+
+TODO: Make this a bower installable stand alone library.
+
+## Using the hack-stack
+To create a new hack-stack endpoint.  Simply call
+`hackStack(data)`
+OR
+`hackWrap('endpoint', mockObject)` if you have a part of an endpoint.
+ 
+where data is either an array of items or a path to a json file.  That's it,
+now you have your mock end point that you can use just like a regular endpoint.
+
+### Accessing hack stack from the chrome console
+While you're working if you want to force a particular error you can call
+`window.hackUtils.forceError(<HTTP ERROR CODE>)` and the next request will
+magically return that error.
+
+Similarly, if random errors are entirely too frequent for you, you can disable
+them by calling `window.hackUtils.disableErrors(true)`.  Once you decide you
+want errors back, you can call `window.hackUtils.disableErrors(false)`.
+
 ## Assumptions
 This library makes a couple of assumptions:
 * You're using AngularJS.  It's designed using AngularJS services.
@@ -58,21 +85,3 @@ have a lot of duplicate data.
 
 Provides all the same methods as the hackStack service but will actually call
 the service.
-
-## Installing the service
-This needs work, but for now take the hack-stack folder out of the core 
-directory and add it into your project.  You will need to change the module 
-names appropriately.
-
-Currently the module has it living in the showcase app.
-
-TODO: Make this a bower installable stand alone library.
-
-## Using the hack-stack
-To create a new hack-stack endpoint.  Simply call
-`hackStack(data)`
-OR
-`hackWrap('endpoint', mockObject)` if you have a part of an endpoint.
- 
-where data is either an array of items or a path to a json file.  That's it,
-now you have your mock end point that you can use just like a regular endpoint.

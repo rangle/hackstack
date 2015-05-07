@@ -64,7 +64,7 @@ gulp.task('beautify', function() {
 });
 
 gulp.task('lint', function () {
-  return gulp.src(clientJsFiles)
+  return gulp.src(clientJsFiles.concat('./gulpfile.js'))
     // '.jshintrc' was a parameter, which lead to jshint not working locally
     // for CD; so removing and seeing if the sky falls for anyone else.
     .pipe(jshint())
@@ -77,6 +77,6 @@ gulp.task('dev', function () {
     ext: 'html js',
     tasks: ['lint', 'index-dev'] })
     .on('restart', function () {
-      console.log('restarted!')
+      console.log('restarted!');
     });
 });

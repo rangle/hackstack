@@ -1,5 +1,7 @@
 # hack-stack
 
+![build status](https://circleci.com/gh/rangle/hack-stack.png)
+
 ## What is hack-stack?
 
 **hack-stack** is an Angular module that lets you develop against APIs that

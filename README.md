@@ -1,5 +1,4 @@
-# hack-stack [![Build status](https://circleci.com/gh/rangle/hack-stack.svg?style=svg&circle-token=4e9f2c3295779e2494abbf8fc84a8aa4f4da0c3f)]
-(https://circleci.com/gh/rangle/hack-stack)
+# hack-stack [![Build status](https://circleci.com/gh/rangle/hack-stack.svg?style=svg&circle-token=4e9f2c3295779e2494abbf8fc84a8aa4f4da0c3f)](https://circleci.com/gh/rangle/hack-stack)
 
 ## What is hack-stack?
 

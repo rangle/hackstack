@@ -1,0 +1,11 @@
+{
+  "name": "hack-stack",
+  "version": "0.9.0",
+  "homepage": "https://github.com/rangle/hack-stack",
+  "authors": [
+    "Brian Olynyk <brian@rangle.io>",
+    "Ahmed Al-Sudani <ahmed.alsudani@rangle.io>"
+  ],
+  "description": "A method for building an app against a non-existent API",
+  "license": "None"
+}

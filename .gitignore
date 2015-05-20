@@ -35,6 +35,7 @@ temp
 node_modules
 bower_components
 coverage
+.settings
 
 keys.md
 .env

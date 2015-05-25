@@ -7,5 +7,18 @@
     "Ahmed Al-Sudani <ahmed.alsudani@rangle.io>"
   ],
   "description": "A method for building an app against a non-existent API",
+  "dependencies": {"ramda": "latest"},
+  "main": [
+    "lib/src/hack-stack/hack-stack.js",
+    "lib/src/hack-stack/hack-stack-mock-service.js",
+    "lib/src/hack-stack/hack-stack-wrapper-service.js",
+    "lib/src/hack-stack/hack-stack-mockfh-service.js",
+    "lib/src/hack-stack/hack-stack-utils-service.js"
+  ],
+  "ignore": [
+    "/example",
+    "/server",
+    "/lib/**/*.test.js"
+  ],
   "license": "None"
 }

@@ -23,7 +23,12 @@ module.exports = function(config) {
     preprocessors: {
       'example/client/app/**/*.html': 'ng-html2js',
       'example/client/app/**/*.json': 'ng-json2js',
-      'lib/src/**/!(*.test).js':'coverage'
+      'lib/src/**/!(*.test).js':['coverage'],
+      'lib/src/**/*.test.js':['wrap']
+    },
+
+    wrapPreprocessor: {
+      template: '(function () { <%= contents %> })()'
     },
 
     coverageReporter: {

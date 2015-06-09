@@ -15,7 +15,7 @@ module.exports = function(config) {
       'example/bower_components/angular/angular.min.js',
       'example/bower_components/angular-mocks/angular-mocks.js',
       'example/bower_components/ramda/dist/ramda.js',
-      'lib/src/**/*.js'
+      'src/**/*.js'
     ],
 
     // preprocess matching files before serving them to the browser
@@ -23,8 +23,8 @@ module.exports = function(config) {
     preprocessors: {
       'example/client/app/**/*.html': 'ng-html2js',
       'example/client/app/**/*.json': 'ng-json2js',
-      'lib/src/**/!(*.test).js':['coverage'],
-      'lib/src/**/*.test.js':['wrap']
+      'src/**/!(*.test).js':['coverage'],
+      'src/**/*.test.js':['wrap']
     },
 
     wrapPreprocessor: {

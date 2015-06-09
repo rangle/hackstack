@@ -15,7 +15,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var del = require('del');
 var nodemon = require('gulp-nodemon');
 
-var clientJsFiles = ['./lib/src/**/*.js', './example/client/**/*.js' ];
+var clientJsFiles = ['./src/**/*.js', './example/client/**/*.js' ];
 var distributionFiles = './dist/app/**/*.js';
 var indexTmpl = './dist/app/index.html';
 var cleanDirs = ['./dist/*'];
@@ -41,7 +41,7 @@ gulp.task('copy', function () {
   gulp.src('./example/bower_components/**/*')
     .pipe(gulp.dest('./dist/bower_components'));
 
-  gulp.src('./lib/src/**/*.js')
+  gulp.src('./src/**/*.js')
     .pipe(gulp.dest('./dist/app'));
 });
 

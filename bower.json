@@ -9,16 +9,16 @@
   "description": "A method for building an app against a non-existent API",
   "dependencies": {"ramda": "latest"},
   "main": [
-    "lib/src/hack-stack/hack-stack.js",
-    "lib/src/hack-stack/hack-stack-mock-service.js",
-    "lib/src/hack-stack/hack-stack-wrapper-service.js",
-    "lib/src/hack-stack/hack-stack-mockfh-service.js",
-    "lib/src/hack-stack/hack-stack-utils-service.js"
+    "src/hack-stack/hack-stack.js",
+    "src/hack-stack/hack-stack-mock-service.js",
+    "src/hack-stack/hack-stack-wrapper-service.js",
+    "src/hack-stack/hack-stack-mockfh-service.js",
+    "src/hack-stack/hack-stack-utils-service.js"
   ],
   "ignore": [
     "/example",
     "/server",
-    "/lib/**/*.test.js"
+    "/src/**/*.test.js"
   ],
   "license": "None"
 }

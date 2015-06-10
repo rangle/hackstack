@@ -1,24 +1,24 @@
 {
-  "name": "hack-stack",
+  "name": "HackStack",
   "version": "0.9.0",
   "homepage": "https://github.com/rangle/hack-stack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rangle/hack-stack"
+  },
   "authors": [
     "Brian Olynyk <brian@rangle.io>",
     "Ahmed Al-Sudani <ahmed.alsudani@rangle.io>"
   ],
   "description": "A method for building an app against a non-existent API",
-  "dependencies": {"ramda": "latest"},
-  "main": [
-    "lib/src/hack-stack/hack-stack.js",
-    "lib/src/hack-stack/hack-stack-mock-service.js",
-    "lib/src/hack-stack/hack-stack-wrapper-service.js",
-    "lib/src/hack-stack/hack-stack-mockfh-service.js",
-    "lib/src/hack-stack/hack-stack-utils-service.js"
-  ],
+  "dependencies": {
+    "ramda": "0.14.0"
+  },
+  "main": "dist/hackstack.js",
   "ignore": [
     "/example",
     "/server",
-    "/lib/**/*.test.js"
+    "/src/**/*.test.js"
   ],
-  "license": "None"
+  "license": "MIT"
 }

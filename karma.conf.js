@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -8,14 +8,16 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai', 'chai-as-promised', 'sinon', 'sinon-chai'],
+    frameworks: ['mocha', 'chai', 'chai-as-promised', 'sinon',
+      'sinon-chai'
+    ],
 
     // list of files / patterns to load in the browser
     files: [
       'example/bower_components/angular/angular.min.js',
       'example/bower_components/angular-mocks/angular-mocks.js',
       'example/bower_components/ramda/dist/ramda.js',
-      'lib/src/**/*.js'
+      'src/**/*.js'
     ],
 
     // preprocess matching files before serving them to the browser
@@ -23,8 +25,8 @@ module.exports = function(config) {
     preprocessors: {
       'example/client/app/**/*.html': 'ng-html2js',
       'example/client/app/**/*.json': 'ng-json2js',
-      'lib/src/**/!(*.test).js':['coverage'],
-      'lib/src/**/*.test.js':['wrap']
+      'src/**/!(*.test).js': ['coverage'],
+      'src/**/*.test.js': ['wrap']
     },
 
     wrapPreprocessor: {
@@ -32,9 +34,15 @@ module.exports = function(config) {
     },
 
     coverageReporter: {
-       reporters: [{type:'json'},{type:'html'},{type:'text-summary'}],
-       dir : './coverage/'
-     },
+      reporters: [{
+        type: 'json'
+      }, {
+        type: 'html'
+      }, {
+        type: 'text-summary'
+      }],
+      dir: './coverage/'
+    },
 
     ngHtml2JsPreprocessor: {
       stripPrefix: 'client/',
@@ -47,8 +55,7 @@ module.exports = function(config) {
     },
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // test results reporter to use

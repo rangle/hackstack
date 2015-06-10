@@ -36,6 +36,7 @@ node_modules
 bower_components
 coverage
 .settings
+bower-angular-hackstack
 
 keys.md
 .env

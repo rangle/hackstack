@@ -1,0 +1,10 @@
+*.swp
+node_modules
+bower_components
+dist
+ngDocs
+.DS_Store
+.tmp
+gulpfile.tmp*
+.svn
+/.idea

@@ -1,0 +1,74 @@
+{
+  "config": {
+    "BASE_URL": "http://hackstack-demo-server.herokuapp.com/cards",
+    "mockObject": {
+      "age": 20,
+      "name": "Chuck",
+      "img": "https://placekitten.com/g/200/300"
+    },
+    "mockData": [
+      {
+        "age": 24,
+        "id": 0,
+        "name": "Josefina",
+        "scientificName": "placekitten",
+        "img": "https://placekitten.com/g/200/300"
+      },
+      {
+        "age": 42,
+        "id": 1,
+        "name": "Josep",
+        "scientificName": "placekitten",
+        "img": "https://placekitten.com/g/200/300"
+      },
+      {
+        "age": 19,
+        "id": 2,
+        "name": "Simon",
+        "scientificName": "placekitten",
+        "img": "https://placekitten.com/g/200/300"
+      },
+      {
+        "age": 32,
+        "id": 3,
+        "name": "Harry",
+        "scientificName": "placekitten",
+        "img": "https://placekitten.com/g/200/300"
+      },
+      {
+        "age": 30,
+        "id": 4,
+        "name": "Vi",
+        "scientificName": "placekitten",
+        "img": "https://placekitten.com/g/200/300"
+      },
+      {
+        "age": 27,
+        "id": 5,
+        "name": "Jule",
+        "scientificName": "placekitten",
+        "img": "https://placekitten.com/g/200/300"
+      },
+      {
+        "age": 42,
+        "id": 6,
+        "name": "Brice",
+        "scientificName": "placekitten",
+        "img": "https://placekitten.com/g/200/300"
+      },
+      {
+        "age": 21,
+        "id": 7,
+        "name": "Hiedi",
+        "scientificName": "placekitten",
+        "img": "https://placekitten.com/g/200/300"
+      },
+      {
+        "age": 29,
+        "id": 8,
+        "scientificName": "Pityriasis gymnocephala",
+        "name": "Bornean bristlehead"
+      }
+    ]
+  }
+}

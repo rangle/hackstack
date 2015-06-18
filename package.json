@@ -1,11 +1,11 @@
 {
   "name": "hack-stack",
-  "version": "0.9.0",
+  "version": "0.1.0",
   "description": "The way you build app that don't have a backend",
   "main": "server/app.js",
   "scripts": {
     "test": "karma start",
-    "postinstall": "cd example && ../node_modules/bower/bin/bower install && gulp index-dev"
+    "postinstall": "bower install"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "node-sass": "^2.1.1"
   },
   "devDependencies": {
+    "angular-mocks": "^1.4.1",
     "chai": "^2.2.0",
     "chai-as-promised": "^5.0.0",
     "gulp-nodemon": "^2.0.2",

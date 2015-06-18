@@ -1,0 +1,17 @@
+<div layout="row" layout-sm="column" class="modular_content">
+  <md-whiteframe class="md-whiteframe-z1" flex ng-cloak >
+    {{ vm.loadingMessage }}
+    <div class="error"> {{ vm.errorMessage }} </div>
+    <div class="md-content card-container">
+        <span ng-repeat="bird in vm.birds" class="item">
+          <ul class="fields">
+            <li class="name"> {{ bird.name }} </li>
+            <img class="profile-pic" ng-src="{{bird.img}}" alt="Profile picture" />
+            <li>Scientific name: {{ bird.scientificName }}</li>
+            <li>Species age: {{ bird.speciesAge }}</li>
+            <li>id: {{ bird.id }}</li>
+          </ul>
+        </span>
+    </div>
+  </md-whiteframe>
+</div>

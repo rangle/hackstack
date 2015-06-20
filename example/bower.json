@@ -16,5 +16,8 @@
     "angular-material": "latest",
     "angular-route": "~1.3",
     "angular-hackstack": "0.1.0"
+  },
+  "resolutions": {
+    "angular": "~1.3"
   }
 }

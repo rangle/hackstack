@@ -14,9 +14,9 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'example/bower_components/angular/angular.min.js',
-      'example/bower_components/angular-mocks/angular-mocks.js',
-      'example/bower_components/ramda/dist/ramda.js',
+      './bower_components/angular/angular.min.js',
+      './bower_components/angular-mocks/angular-mocks.js',
+      './bower_components/ramda/dist/ramda.js',
       'src/**/*.js'
     ],
 

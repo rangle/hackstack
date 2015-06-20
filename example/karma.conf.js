@@ -1,67 +1,45 @@
-'use strict';
+// Karma configuration
 
-module.exports = function (config) {
+module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
+
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai', 'chai-as-promised', 'sinon',
-      'sinon-chai'
-    ],
+    frameworks: ['jasmine'],
+
 
     // list of files / patterns to load in the browser
     files: [
-      './bower_components/angular/angular.min.js',
-      './bower_components/angular-mocks/angular-mocks.js',
-      './bower_components/ramda/dist/ramda.js',
-      'src/**/*.js'
+      
+      // gulp-inject:mainBowerFiles
+      // gulp-inject:mainBowerFiles:end
+      
+      // gulp-inject:src
+      // gulp-inject:src:end
+			
     ],
+
+    // list of files to exclude
+    exclude: [
+      '**/*.swp'
+    ],
+
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'example/client/app/**/*.html': 'ng-html2js',
-      'example/client/app/**/*.json': 'ng-json2js',
-      'src/**/!(*.test).js': ['coverage'],
-      'src/**/*.test.js': ['wrap']
+    
     },
-
-    wrapPreprocessor: {
-      template: '(function () { <%= contents %> })()'
-    },
-
-    coverageReporter: {
-      reporters: [{
-        type: 'json'
-      }, {
-        type: 'html'
-      }, {
-        type: 'text-summary'
-      }],
-      dir: './coverage/'
-    },
-
-    ngHtml2JsPreprocessor: {
-      stripPrefix: 'client/',
-      moduleName: 'htmlTemplates'
-    },
-
-    ngJson2JsPreprocessor: {
-      stripPrefix: 'client',
-      prependPrefix: 'served'
-    },
-
-    // list of files to exclude
-    exclude: [],
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['story', 'coverage'],
+    reporters: ['progress'],
 
 
     // web server port
@@ -78,7 +56,7 @@ module.exports = function (config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // start these browsers

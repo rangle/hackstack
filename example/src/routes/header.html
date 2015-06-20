@@ -1,0 +1,15 @@
+<md-toolbar>
+  <h2 class="md-toolbar-tools" ng-controller="nav as vm">
+    <span ng-repeat="type in vm.types">
+    <md-button
+    ng-click="vm.click($event)"
+    ng-class="{ 'md-primary': !vm.isActive('/{{type.href}}') }"
+    type="{{type.href}}"
+    href="/{{type.href}}"
+    class="md-raised">
+      {{type.name}}
+    </md-button>
+    </span>
+    &nbsp;
+  </h2>
+</md-toolbar>

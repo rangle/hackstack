@@ -1,0 +1,6 @@
+{
+  "generator-modular": {
+    "name": "hackstack demo app",
+    "uxFramework": "material"
+  }
+}

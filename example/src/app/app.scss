@@ -1,0 +1,42 @@
+body {
+  background-color: white;
+}.modular_content md-whiteframe img {
+  display: block;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.modular_content md-whiteframe {
+  margin: 10px 10px 10px 10px;
+}
+
+.modular_content md-whiteframe p, h1, h2, h3, h4 {
+  margin: 10px 10px 10px 10px;
+}
+
+.item {
+  width: 350px;
+  float: left;
+  margin: 10px;
+  .name {
+    font-weight: bold;
+  }
+  li {
+    margin: 10px;
+  }
+}
+
+.error {
+  color: red;
+}
+
+.fields {
+  list-style-type: none;
+}
+
+.profile-pic {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+}

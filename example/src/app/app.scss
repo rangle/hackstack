@@ -17,6 +17,7 @@ body {
 
 .item {
   width: 350px;
+  height: 350px;
   float: left;
   margin: 10px;
   .name {
@@ -24,6 +25,7 @@ body {
   }
   li {
     margin: 10px;
+    text-align: center;
   }
 }
 
@@ -35,7 +37,7 @@ body {
   list-style-type: none;
 }
 
-.profile-pic {
+.species-pic {
   width: 130px;
   height: 130px;
   object-fit: cover;

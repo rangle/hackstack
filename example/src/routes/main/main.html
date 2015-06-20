@@ -6,9 +6,9 @@
         <span ng-repeat="bird in vm.birds" class="item">
           <ul class="fields">
             <li class="name"> {{ bird.name }} </li>
-            <img class="profile-pic" ng-src="{{bird.img}}" alt="Profile picture" />
+            <img class="species-pic" ng-src="{{bird.img}}" alt="Species picture" />
             <li>Scientific name: {{ bird.scientificName }}</li>
-            <li>Species age: {{ bird.speciesAge }}</li>
+            <li>Order age: {{ bird.age }}</li>
             <li>id: {{ bird.id }}</li>
           </ul>
         </span>

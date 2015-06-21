@@ -1,10 +1,10 @@
 {
   "name": "HackStack",
   "version": "0.1.0",
-  "homepage": "https://github.com/rangle/hack-stack",
+  "homepage": "https://github.com/rangle/hackstack",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rangle/hack-stack"
+    "url": "https://github.com/rangle/hackstack"
   },
   "authors": [
     "Brian Olynyk <brian@rangle.io>",

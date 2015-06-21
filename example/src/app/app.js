@@ -20,7 +20,7 @@ angular.module('hackstack demo app', [
 .config([ '$routeProvider', '$locationProvider',
 function($routeProvider,$locationProvider) {
     var main = {
-      templateUrl: 'routes/main/main.html',
+      templateUrl: 'app/main.html',
       controller: 'main',
       controllerAs: 'vm'
     };

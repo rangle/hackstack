@@ -2,60 +2,54 @@
 
 ## What is HackStack?
 
-**HackStack** is an Angular module that lets you develop against APIs that
-don't exist yet or that aren't complete.
+**HackStack** is an Angular module that helps you work with the backend APIs that is incomplete or altogether missing.
 
-At Rangle.io we spend a lot of time building against API's that are either
-non-existent or partially existent.  
+In our experience working on numerous Angular projects, broken or delayed backend APIs are quite common and can present a major risk if you the front end team cannot find a good way to proceed in this situation. After trying a number of approaches, we've found client-side mocking to the be most effective route.
 
-Our CEO and CTO gave a talk about a method of getting around this
-problem by creating mock API end points that your app can run against.  
-You can see the full presentation [here]
-(http://yto.io/slides/Building-an-AngularJS-Hack-Stack-2015.pdf)
+We've done it a few different ways on a number of projects and presented some of our observations in a [talk](http://yto.io/slides/Building-an-AngularJS-Hack-Stack-2015.pdf) at ngConf in 2015. We've got a lot of positive response, but also a question: "Why don't you make this a reusable library?" So we did. Enter HackStack.js, the library.
 
-While the presentation specifies that the HackStack is a methodology, not a
-library, the enthusiasm we saw for a library could not be ignored.  This is the
-library.
+## Installing with Bower
 
-## Installing the service
+The easiest way to install HackStack is by using bower:
 
-Install HackStack using bower by typing
-`bower install --save angular-hackstack` into your terminal. Alternatively,
-if you want to build it from source, clone this repository and run `gulp build`
-after satisfying all the dependencies. The build script builds HackStack into
-the `dist` directory.
+```bash
+  bower install --save angular-hackstack
+```
+
+Alternatively, build HackStack using this repo.
 
 ## Using HackStack
 
-Include HackStack by adding `dist/hackstack.js` or `dist/hackstack.min.js` to
-your application. Then add `hackstack` to your module's dependencies.
-Now `hackstack` will be an angular service that your services can inject
-through Angular's dependency injection.
+To create a new HackStack endpoint, call:
 
-To create a new HackStack endpoint.  Simply call
-`hackstack.mock(data)`
-OR
-`hackstack.wrap(endpoint, mockObject)` if you have a part of an endpoint.
+```js
+  var mockEndpoint = hackstack.mock(data);
+```
 
-where data is either an array of items or a path to a json file.  That's it,
-now you have your mock end point that you can use just like a regular endpoint.
+This creates a fully mocked endpoint which won't make any calls to the backend at all.
+Here, `data` can be either an array of items or a path to a json file.
 
-Note that the `hackstack.wrap` service requires that you inject an `API_BASE`
-variable that contains the base URL for the API you're wrapping.
+Alternative, you can "wrap" an existing endpoint: HackStack will then get the data from the server and fill in the missing properties of each item based on a provided template object:
 
-### Accessing HackStack from the chrome console
+```
+  var wrappedEndpoint = hackstack.wrap(endpoint, templateObject);
+```
 
-While you're working if you want to force a particular error you can call
-`window.hsUtils.forceError(<HTTP ERROR CODE>)` and the next request will
-magically return that error.
+### Controlling HackStack from the Browser Console
 
-Similarly, if random errors are entirely too frequent for you, you can disable
-them by calling `window.hsUtils.disableErrors(true)`.  Once you decide you
-want errors back, you can call `window.hsUtils.disableErrors(false)`.
+While you're working with HackStack, you may want to force a particular error to happen on the next call to the endpoint. You can do this by exposing the mock endpoint object to the console and then calling `.forceError(<HTTP ERROR CODE>)` on it. Subsequent requests will then return that error. Call `.forceError(null)` to turn this off.
+
+### Random Errors
+
+HackStack defaults to generating random errors in response to endpoint requests. You can turn this off using `.disableError(true)` on your mock endpoint object. You can turn it back on by calling the same method with `false`.
+
+### Artificial Delay
+
+HackStack introduced an randomized artificial delay on all requests. This helps you detect the cases where your code makes optimistic assumptions about timing.
 
 ## Assumptions
 
-This library makes a couple of assumptions:
+This library currently makes a couple of assumptions:
 
 * You're using AngularJS.  It's designed using AngularJS services.
 

@@ -19,15 +19,18 @@ library.
 
 ## Installing the service
 
-This needs work, but for now take the HackStack folder out of the core
-directory and add it into your project.  You will need to change the module
-names appropriately.
-
-Currently the module has it living in the showcase app.
-
-TODO: Make this a bower installable stand alone library.
+Install HackStack using bower by typing
+`bower install --save angular-hackstack` into your terminal. Alternatively,
+if you want to build it from source, clone this repository and run `gulp build`
+after satisfying all the dependencies. The build script builds HackStack into
+the `dist` directory.
 
 ## Using HackStack
+
+Include HackStack by adding `dist/hackstack.js` or `dist/hackstack.min.js` to
+your application. Then add `hackstack` to your module's dependencies.
+Now `hackstack` will be an angular service that your services can inject
+through Angular's dependency injection.
 
 To create a new HackStack endpoint.  Simply call
 `hackstack.mock(data)`

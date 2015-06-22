@@ -45,6 +45,28 @@ provided template object:
   var wrappedEndpoint = hackstack.wrap(endpoint, templateObject);
 ```
 
+### Example
+
+```js
+  var mockEndpoint = hackstack.mock([
+    {
+      'name': 'Alice',
+      'id': 1
+    },
+    {
+      'name': 'Bob',
+      'id': 2
+    }
+    ]);
+
+  mockEndpoint.get(1)
+    .then(function (response) {
+      console.log(response.data); // logs {'name': 'Alice', 'id': 1}
+    });
+```
+
+A full example is available under the [example directory](./example)
+
 ### Controlling HackStack from the Browser Console
 
 While you're working with HackStack, you may want to force a particular error to
@@ -122,7 +144,7 @@ A `hackstack.mock` object contains the following methods:
 * `get(id)`: Get a single result (equivalent to requesting `API_BASE/endpoint/id`)
 * `query(queryObject)`: get the first result where for any key:value pair in
   `queryObject`, there's a matching key:value pair in the mock data object<br/>
-  `queryObject` {object}
+  `queryObject` : {object}
 * `create(object, createIdFn)`: Create a new record <br/>
   `object` : {object} <br/>
   `createIdFn` : {() -> int} Function that returns an integer to be used as an id

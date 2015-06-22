@@ -81,7 +81,13 @@ single record, creating a record, etc.
 This service provides methods that are used by both `hackstack.mock` and `hackstack.wrap`
 services.  Those functions are:
 
-* `disableErrors(value)`: Disable random error generation. <br/>
+* `addErrorTrigger(errorFn, errorCode, method)`: Adds an "error trigger" that
+  will fire if `errorFn(response)` returns true (where `response` is the
+  response object that would otherwise be returned by HackStack) <br/>
+  `errorFn` : {function} predicate that decides whether error should be returned <br/>
+  `errorCode` : {integer} HTTP error code to return <br/>
+  `method` : {string} Which HTTP method to check error trigger against (e.g. 'POST')
+* `disableRandomErrors(value)`: Disable random error generation. <br/>
   `value` : {boolean}
 * `forceError(errorCode)`: Reject with this error code in the next response.
   Reset error if `errorCode` is `null`
@@ -90,10 +96,15 @@ services.  Those functions are:
 * `produceError(errorArray)`: Return either an error object or null depending
   on the probability distribution defined in the errorArray <br/>
   `errorArray` : {\[object]} (optional) an array of error objects
+* `randomError(errorArray)`: Return a random error from an array of errors
+  (`errorArray` or the default error array if none provided) <br/>
+  `errorArray` : {\[object]} (optional) an array of error objects
 * `getErrorByCode(errorCode)`: Returns an error object with error code matching
   `errorCode`. <br/>
   `errorCode` : {integer}
 * `randomInt()`: Returns a random integer. <br/>
+* `setOptions(newOptions)`: Updates the HackStack options list <br/>
+  `newOptions` : {object}
 * `waitForTime()`: Returns a promise that resolves after some time. Used to
   mimic latency <br/>
 
@@ -101,17 +112,20 @@ services.  Those functions are:
 
 `hackstack.mock` is a service that creates a mock backend from scratch.
 To create a HackStack instance, call `hackstack.mock(mockData, options)` where `mockData`
-is an array of objects and `options` is an optional argument of type `Object`
+is an array of objects and `options` is an optional argument of type `Object`.
+
+Alternatively, `mockData` can be the path to a JSON that is an array of objects
 
 A `hackstack.mock` object contains the following methods:
 
 * `getAll()`: Get all results (equivalent to requesting `API_BASE/endpoint/`)
 * `get(id)`: Get a single result (equivalent to requesting `API_BASE/endpoint/id`)
-* `query()`: Issue a filter against a result set (For now just works the same as
-  getAll.
+* `query(queryObject)`: get the first result where for any key:value pair in
+  `queryObject`, there's a matching key:value pair in the mock data object<br/>
+  `queryObject` {object}
 * `create(object, createIdFn)`: Create a new record <br/>
   `object` : {object} <br/>
-  `createIdFn` {() -> int} Function that returns an integer to be used as an id
+  `createIdFn` : {() -> int} Function that returns an integer to be used as an id
 * `update(object, createIdFn)`: Update a record. <br/>
   signature is identical to `create`
 * `save(object, createIdFn)`: a method that will call create or update

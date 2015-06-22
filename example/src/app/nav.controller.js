@@ -4,8 +4,8 @@ function (config, $location, $route) {
   var vm = this;
   vm.types = [
     {name: 'live', href: 'live'},
-    {name: 'hackstack.mock', href: 'mock'},
-    {name: 'hackstack.wrap', href: 'wrap'}
+    {name: 'mock', href: 'mock'},
+    {name: 'wrap', href: 'wrap'}
   ];
   vm.isActive = function isActive(href) {
     return href === $location.path() ||

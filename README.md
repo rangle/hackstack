@@ -2,11 +2,19 @@
 
 ## What is HackStack?
 
-**HackStack** is an Angular module that helps you work with the backend APIs that is incomplete or altogether missing.
+**HackStack** is an Angular module that helps you work with backend APIs that
+are incomplete or altogether missing.
 
-In our experience working on numerous Angular projects, broken or delayed backend APIs are quite common and can present a major risk if you the front end team cannot find a good way to proceed in this situation. After trying a number of approaches, we've found client-side mocking to the be most effective route.
+In our experience working on numerous Angular projects, broken or delayed
+backend APIs are quite common and can present a major risk if the front end
+team cannot find a good way to react in this situation. After trying a number of
+approaches, we've found client-side mocking to the be most effective route.
 
-We've done it a few different ways on a number of projects and presented some of our observations in a [talk](http://yto.io/slides/Building-an-AngularJS-Hack-Stack-2015.pdf) at ngConf in 2015. We've got a lot of positive response, but also a question: "Why don't you make this a reusable library?" So we did. Enter HackStack.js, the library.
+We've done it a few different ways on a number of projects and presented some of
+our observations in a
+[talk](http://yto.io/slides/Building-an-AngularJS-Hack-Stack-2015.pdf) at ngConf
+in 2015. We've got a lot of positive response, but also a question: "Why don't
+you make this a reusable library?" So we did. Enter HackStack.js, the library.
 
 ## Installing with Bower
 
@@ -26,26 +34,35 @@ To create a new HackStack endpoint, call:
   var mockEndpoint = hackstack.mock(data);
 ```
 
-This creates a fully mocked endpoint which won't make any calls to the backend at all.
-Here, `data` can be either an array of items or a path to a json file.
+This creates a fully mocked endpoint which won't make any calls to the backend
+at all. Here, `data` can be either an array of items or a path to a json file.
 
-Alternative, you can "wrap" an existing endpoint: HackStack will then get the data from the server and fill in the missing properties of each item based on a provided template object:
+Alternatively, you can "wrap" an existing endpoint: HackStack will then get the
+data from the server and fill in the missing properties of each item based on a
+provided template object:
 
-```
+```js
   var wrappedEndpoint = hackstack.wrap(endpoint, templateObject);
 ```
 
 ### Controlling HackStack from the Browser Console
 
-While you're working with HackStack, you may want to force a particular error to happen on the next call to the endpoint. You can do this by exposing the mock endpoint object to the console and then calling `.forceError(<HTTP ERROR CODE>)` on it. Subsequent requests will then return that error. Call `.forceError(null)` to turn this off.
+While you're working with HackStack, you may want to force a particular error to
+happen on the next call to the endpoint. You can do this by exposing the mock
+endpoint object to the console and then calling `.forceError(<HTTP ERROR CODE>)`
+on it. Subsequent requests will then return that error. Call `.forceError(null)`
+to turn this off.
 
 ### Random Errors
 
-HackStack defaults to generating random errors in response to endpoint requests. You can turn this off using `.disableError(true)` on your mock endpoint object. You can turn it back on by calling the same method with `false`.
+HackStack defaults to generating random errors in response to endpoint requests.
+You can turn this off using `.disableError(true)` on your mock endpoint object.
+You can turn it back on by calling the same method with `false`.
 
 ### Artificial Delay
 
-HackStack introduced an randomized artificial delay on all requests. This helps you detect the cases where your code makes optimistic assumptions about timing.
+HackStack introduces randomized artificial delay on all requests. This helps you
+detect cases where your code makes optimistic assumptions about timing.
 
 ## Assumptions
 
@@ -67,6 +84,7 @@ services.  Those functions are:
 * `disableErrors(value)`: Disable random error generation. <br/>
   `value` : {boolean}
 * `forceError(errorCode)`: Reject with this error code in the next response.
+  Reset error if `errorCode` is `null`
   <br/>
   `errorCode` : {integer}
 * `produceError(errorArray)`: Return either an error object or null depending

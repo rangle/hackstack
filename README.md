@@ -148,8 +148,9 @@ A `hackstack.mock` object contains the following methods:
 * `create(object, createIdFn)`: Create a new record <br/>
   `object` : {object} <br/>
   `createIdFn` : {() -> int} Function that returns an integer to be used as an id
-* `update(object, createIdFn)`: Update a record. <br/>
-  signature is identical to `create`
+* `update(id, object)`: Update a record. <br/>
+  `id`  : the id of the record <br/>
+  `object` : {object} the object to update
 * `save(object, createIdFn)`: a method that will call create or update
   depending on presence of an id. <br/>
   signature is identical to `create`

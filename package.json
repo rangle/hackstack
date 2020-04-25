@@ -5,7 +5,9 @@
   "main": "server/app.js",
   "scripts": {
     "test": "karma start",
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,7 @@
     "del": "^1.1.1",
     "express": "^4.12.2",
     "gulp": "^3.8.11",
-    "gulp-bump": "^0.3.1",
+    "gulp-bump": "^2.0.0",
     "gulp-concat": "^2.5.2",
     "gulp-filter": "^2.0.2",
     "gulp-inject": "^1.2.0",
@@ -37,7 +39,8 @@
     "gulp-sequence": "^0.3.2",
     "gulp-uglify": "^1.2.0",
     "jshint-stylish": "^1.0.1",
-    "node-sass": "^2.1.1"
+    "node-sass": "^2.1.1",
+    "snyk": "^1.311.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.1",
@@ -63,5 +66,6 @@
     "mocha": "^2.2.4",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0"
-  }
+  },
+  "snyk": true
 }

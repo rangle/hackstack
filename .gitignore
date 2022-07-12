@@ -30,7 +30,6 @@ Thumbs.db
 *swo
 *swn
 build
-dist
 temp
 node_modules
 bower_components

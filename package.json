@@ -1,5 +1,5 @@
 {
-  "name": "HackStack",
+  "name": "hackstack",
   "version": "0.1.0",
   "description": "The way you build app that don't have a backend",
   "main": "server/app.js",
